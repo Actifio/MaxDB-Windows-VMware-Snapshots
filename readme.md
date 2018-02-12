@@ -137,4 +137,15 @@ C:\Windows\<post-thaw-script.bat></pre-freeze-script.bat>
 
 The Scripts will only be run if an Application Consistent snapshot is requested.   If the snapshot policy requests crash consistent snapshots then the request will never be sent to VMware tools to run the scripts.
 
+3) The scripts fail because DBMCLI.exe cannot be found
+
+a)  Either you did not reboot after installing MAXDB so there is no path environment variable
+b)  MAXDB was installed as part of SAP installation and there is no PATH to that folder
+
+In which case determine location of dbmcli.exe and update the freeze and thaw scripts with actual location.
+Could be:    
+C:\sapdb\programs\pgm\dbmcli.exe
+C:\Program Files\sdb\programs\pgm\dbmcli.exe
+
+
 
