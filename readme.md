@@ -144,8 +144,9 @@ b)  MAXDB was installed as part of SAP installation and there is no PATH to that
 
 In which case determine location of dbmcli.exe and update the freeze and thaw scripts with actual location.
 Could be:    
+```
 C:\sapdb\programs\pgm\dbmcli.exe
 C:\Program Files\sdb\programs\pgm\dbmcli.exe
-
+```
 
 
