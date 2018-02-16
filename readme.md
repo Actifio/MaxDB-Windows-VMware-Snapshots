@@ -149,4 +149,14 @@ C:\sapdb\programs\pgm\dbmcli.exe
 C:\Program Files\sdb\programs\pgm\dbmcli.exe
 ```
 
+4)  Manually running the script fails with errors like this:
+```
+Error! Connection failed to node (local) for database MAXDB1:
+-24700,ERR_DBMSRV_NOSTART: Could not start DBM server.
+-24701,ERR_EXHNDLR: Could not initialize exception handler.
+-24748,ERR_FILEOPEN: Error opening file C:\ProgramData\sdb\data\wrk\dbmsrv_SGWINDOWS001.err
+-24826,ERR_NIERROR: Can not open file 'C:\ProgramData\sdb\data\wrk\dbmsrv_SGWINDOWS001.err'. (System error 5; Access is denied.)
+```
+You need to start the Command Prompt using 'Run as Administrator'
+
 
