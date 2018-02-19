@@ -12,6 +12,24 @@ Effectively the order of events will be:
 5)  Actifio creates an image of the VMware snapshot
 6)  Actifio requests the VMware snapshot be removed
 
+# Important points
+
+This technique suspends the log writer, which suspends update transactions.  Therefore this procedure needs to be run as quickly as possble.  VMware snapshots are good for this because snapshot creation at the ESX level is very fast, allowing the log writer to be resumed quickly.
+
+By suspending the log writer, no more Checkpoints (also called Savepoints) can be written.  This means the last Savepoint is used during database restart or restore.
+
+
+# Supporting documentation
+
+This kind of backup is documented in SAP Note 616814.
+
+Recovery information is documented in SAP Note 371247.  
+
+# Supported MaxDB Versions
+
+MaxDB 7.3 does not support exiting the session between suspend and resume.  For this reason use version 7.4 and above.
+From version 7.8.0.2 and above SAP suggest a different method documented in SAP note 1928060
+
 # Customizing the Scripts
 
 The two scripts need three settings customized.   The password is stored in the clear.
