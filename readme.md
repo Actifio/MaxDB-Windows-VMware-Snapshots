@@ -181,7 +181,7 @@ Error! Connection failed to node (local) for database MAXDB1:
 ```
 You need to start the Command Prompt using 'Run as Administrator'
 
-5)  The VMware snapshots fail with a message about bus sharing.
+5)  The VMware snapshots fail with a message that talks about bus sharing.
 
-This VMi is part of a Microsoft Cluster and cannot be protected using this method.
+This VM is part of a Microsoft Cluster and cannot be protected using this method.
 
