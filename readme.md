@@ -1,11 +1,15 @@
 # Background
 
-If you have a Windows VM running in ESX which is hosting a MaxDB database and you want to create VMware Snapshots where the database is in an Application Consistent state then we can use these scripts.
-VMware tools must be installed and running on the VMware VM.
+If you have a Windows VM running in ESX which is hosting a MaxDB database and you want to create VMware Snapshots where the database is in an Application Consistent state then we can use these scripts.   The only requirements are:
+
+1)  VMware tools must be installed and running on the VMware VM.
+2)  The VM cannot be in a Microsoft Cluster (MSCS).  This is because MSCS requires all adapters to be in bus sharing mode, which blocks VMware snapshots.
+3)  The Actifio Connector does not need to be installed for snapshots to work, but may be needed to assist with co-ordinating mounts.
+4)  The snapshot policy in the Template needs to specify Application Consistency or MaxDB will not be quiesced before each snapshot.
 
 Effectively the order of events will be:
 
-1)  Actifio requests an Application Consistent VMware snapshot of the VM
+1)  Actifio requests an Application Consistent VMware snapshot of the VM 
 2)  ESX requests VMware tools running in the VM to run any script located in c:\windows\pre-freeze-script.bat
 3)  ESX takes a snapshot of the VM
 4)  ESX requests VMware tools running in the VM to run any script located in c:\windows\post-thaw-script.bat
@@ -14,7 +18,7 @@ Effectively the order of events will be:
 
 # Important points
 
-This technique suspends the log writer, which suspends update transactions.  Therefore this procedure needs to be run as quickly as possble.  VMware snapshots are good for this because snapshot creation at the ESX level is very fast, allowing the log writer to be resumed quickly.
+This technique suspends the log writer, which suspends update transactions.  Therefore this procedure needs to be run as quickly as possible.  VMware snapshots are good for this because snapshot creation at the ESX level is very fast, allowing the log writer to be resumed quickly.
 
 By suspending the log writer, no more Checkpoints (also called Savepoints) can be written.  This means the last Savepoint is used during database restart or restore.
 
@@ -177,4 +181,7 @@ Error! Connection failed to node (local) for database MAXDB1:
 ```
 You need to start the Command Prompt using 'Run as Administrator'
 
+5)  The VMware snapshots fail with a message about bus sharing.
+
+This VMi is part of a Microsoft Cluster and cannot be protected using this method.
 
